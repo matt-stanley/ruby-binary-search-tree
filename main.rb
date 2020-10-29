@@ -2,4 +2,6 @@ require_relative 'tree'
 
 tree = Tree.new((1..30).to_a.shuffle)
 
-p tree.find(31)
+tree.insert(-4)
+
+tree.pretty_print
