@@ -1,6 +1,7 @@
 require_relative 'node'
 require_relative 'merge_sort'
 
+# Each instance is balanced Binary Search Tree built from provided array.
 class Tree
 
   def initialize(array)
@@ -11,7 +12,7 @@ class Tree
   def build_tree(array)
     # Two guard clauses: if array is only one element, and if array is empty.
     return nil if array[0].nil?;
-    
+
     return Node.new(array[0]) if array.length == 1;
 
     mid_point = array.length / 2
@@ -23,6 +24,22 @@ class Tree
     root_node.right_child = build_tree(right_tree)
 
     root_node
+  end
+
+  def find(value)
+    node = @root
+
+    until node.nil?
+      if value == node.data
+        return node
+      elsif value < node.data
+        node = node.left_child
+      elsif value > node.data
+        node = node.right_child
+      end
+    end
+
+    node
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
