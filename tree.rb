@@ -71,6 +71,25 @@ class Tree
     0
   end
 
+  def level_order
+    search_array = [] # Stores values found
+    node_queue = [] # Stores nodes to visit later
+
+    node_queue.push(@root)
+
+    until node_queue.length <= 0
+      current_node = node_queue.shift
+
+      search_array.push(current_node.data)
+
+      node_queue.push(current_node.left_child) if current_node.left_child;
+      node_queue.push(current_node.right_child) if current_node.right_child;
+    end
+
+    search_array
+  end
+
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
