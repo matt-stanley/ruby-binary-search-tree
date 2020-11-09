@@ -89,6 +89,19 @@ class Tree
     search_array
   end
 
+  def inorder(node = @root, arr = [])
+    return nil if node.nil?;
+
+    left_tree = inorder(node.left_child, arr)
+    arr = left_tree if left_tree
+
+    arr.push(node.data)
+
+    right_tree = inorder(node.right_child, arr)
+    arr = right_tree if right_tree
+
+    arr
+  end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child

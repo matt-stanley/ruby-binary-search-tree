@@ -4,4 +4,4 @@ tree = Tree.new((1..30).to_a.shuffle)
 
 tree.pretty_print
 
-p tree.level_order
+p tree.inorder
