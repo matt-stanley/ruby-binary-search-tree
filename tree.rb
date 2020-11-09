@@ -103,6 +103,34 @@ class Tree
     arr
   end
 
+  def preorder(node = @root, arr = [])
+    return nil if node.nil?;
+
+    arr.push(node.data)
+
+    left_tree = preorder(node.left_child, arr)
+    arr = left_tree if left_tree
+
+    right_tree = preorder(node.right_child, arr)
+    arr = right_tree if right_tree
+
+    arr
+  end
+
+  def postorder(node = @root, arr = [])
+    return nil if node.nil?;
+
+    left_tree = postorder(node.left_child, arr)
+    arr = left_tree if left_tree
+
+    right_tree = postorder(node.right_child, arr)
+    arr = right_tree if right_tree
+
+    arr.push(node.data)
+
+    arr
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
