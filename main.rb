@@ -14,8 +14,6 @@ puts "Post-Order: \n#{tree.postorder}\n\n"
 
 puts "In-Order: \n#{tree.inorder}\n\n"
 
-new_values = Array.new(100) { rand(95..200) }
-
 100.times do
   tree.insert(rand(95..200))
 end

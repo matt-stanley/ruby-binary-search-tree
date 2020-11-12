@@ -69,8 +69,10 @@ class Tree
   end
 
   def delete(value)
-    # TODO
-    0
+    tree_array = level_order
+    tree_array.delete(value)
+
+    @root = build_tree(tree_array)
   end
 
   def level_order
