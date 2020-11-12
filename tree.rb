@@ -3,9 +3,9 @@ require_relative 'merge_sort'
 
 # Each instance is balanced Binary Search Tree built from provided array.
 class Tree
-
+  attr_reader :root
   def initialize(array)
-    sorted_array = merge_sort(array)
+    sorted_array = merge_sort(array.uniq)
     @root = build_tree(sorted_array)
   end
 
@@ -62,6 +62,8 @@ class Tree
         else
           node = node.right_child
         end
+      elsif value == node.data
+        inserted = true
       end
     end
   end
@@ -129,6 +131,42 @@ class Tree
     arr.push(node.data)
 
     arr
+  end
+
+  def height(node = @root)
+    return 0 if node.nil?
+
+    left_height = height(node.left_child)
+    right_height = height(node.right_child)
+
+    if left_height > right_height
+      left_height + 1
+    else
+      right_height + 1
+    end
+  end
+
+  def depth(search_node, current_node = @root, level = 0)
+    return 0 if current_node.nil?
+
+    return level if current_node == search_node
+
+    down_level = depth(search_node, current_node.left_child, level + 1)
+
+    return down_level unless down_level.zero?
+
+    down_level = depth(search_node, current_node.right_child, level + 1)
+
+    down_level
+  end
+
+  def balanced?
+    (height(@root.left_child) - height(@root.right_child)).abs <= 1
+  end
+
+  def rebalance
+    sorted_array = merge_sort(level_order.uniq)
+    @root = build_tree(sorted_array)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
